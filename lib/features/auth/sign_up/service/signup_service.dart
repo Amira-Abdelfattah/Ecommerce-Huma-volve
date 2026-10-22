@@ -9,7 +9,7 @@ class SignupService {
   SignupService(this.apiManager);
 
   Future<SignupResponseModel> signup(SignupReqModel signupReqModel) async {
-    final response = await apiManager.dio.get(
+    final response = await apiManager.dio.post(
       ApiEndPoints.signupEndpoint,
       data: {
         "email": signupReqModel.email,

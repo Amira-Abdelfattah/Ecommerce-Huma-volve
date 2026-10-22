@@ -3,9 +3,9 @@ import 'package:ecommerce_app_huma_volve/core/network/api_manager.dart';
 import 'package:ecommerce_app_huma_volve/features/auth/login/service/login_service.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../core/widgets/primary_button.dart';
-import '../../../../core/theme.dart';
 import '../../../main_navigation/screens/main_navigation_screen.dart';
 import '../../sign_up/screens/sign_up_screen.dart';
 
@@ -144,7 +144,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 32),
                 PrimaryButton(
-                  text: 'Login',', onPressed: _logi),
+                    text: 'Login',
+                    onPressed: _login),
                 const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
