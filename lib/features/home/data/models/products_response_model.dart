@@ -1,3 +1,5 @@
+import 'package:ecommerce_app_huma_volve/features/home/domain/entities/home_product_entity.dart';
+
 import 'category_response_model.dart';
 
 /// id : 2
@@ -10,15 +12,15 @@ import 'category_response_model.dart';
 /// creationAt : "2026-10-21T17:25:06.000Z"
 /// updatedAt : "2026-10-22T05:10:45.000Z"
 
-class ProductsResponseModel {
+class ProductsResponseModel extends HomeProductEntity {
   ProductsResponseModel({
-    this.id,
-    this.title,
-    this.slug,
-    this.price,
-    this.description,
-    this.category,
-    this.images,
+    super.id,
+    super.title,
+    super.slug,
+    super.price,
+    super.description,
+    super.category,
+    super.images,
   });
 
   ProductsResponseModel.fromJson(dynamic json) {
@@ -32,12 +34,4 @@ class ProductsResponseModel {
         : null;
     images = json['images'] != null ? json['images'].cast<String>() : [];
   }
-
-  num? id;
-  String? title;
-  String? slug;
-  num? price;
-  String? description;
-  CategoryResponseModel? category;
-  List<String>? images;
 }

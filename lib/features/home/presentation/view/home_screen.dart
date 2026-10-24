@@ -1,17 +1,15 @@
 import 'package:ecommerce_app_huma_volve/core/network/api_manager.dart';
-import 'package:ecommerce_app_huma_volve/features/home/cubit/home_cubit.dart';
-import 'package:ecommerce_app_huma_volve/features/home/screens/widgets/product_card.dart';
-import 'package:ecommerce_app_huma_volve/features/home/services/home_service.dart';
+import 'package:ecommerce_app_huma_volve/features/home/presentation/view/widgets/product_card.dart';
+import 'package:ecommerce_app_huma_volve/features/home/presentation/view_model/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/dummy_data.dart';
-import '../../../core/theme.dart';
+import '../../../../../core/dummy_data.dart';
+import '../../../../../core/theme.dart';
 import 'widgets/category_chip.dart';
 
 class HomeScreen extends StatefulWidget {
   late final ApiManager apiManager;
-  late final HomeService homeService;
   late final HomeCubit homeCubit;
 
   @override

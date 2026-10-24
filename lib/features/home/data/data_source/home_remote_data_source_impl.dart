@@ -1,14 +1,16 @@
-import 'package:ecommerce_app_huma_volve/core/constants/api_endpoints.dart';
 import 'package:ecommerce_app_huma_volve/core/network/api_manager.dart';
+import 'package:ecommerce_app_huma_volve/features/home/data/models/category_response_model.dart';
+import 'package:ecommerce_app_huma_volve/features/home/data/models/products_response_model.dart';
 
-import 'models/category_response_model.dart';
-import 'models/products_response_model.dart';
+import '../../../../core/constants/api_endpoints.dart';
+import 'home_remote_data_source.dart';
 
-class HomeService {
+class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   final ApiManager apiManager;
 
-  HomeService(this.apiManager);
+  HomeRemoteDataSourceImpl(this.apiManager);
 
+  @override
   Future<List<CategoryResponseModel>> getCategoryList() async {
     final catResponse = await apiManager.dio.get(ApiEndPoints.categoryEndpoint);
 
@@ -24,6 +26,7 @@ class HomeService {
     return categoriesList;
   }
 
+  @override
   Future<List<ProductsResponseModel>> getProductByCategoryId(
     int? categoryId,
   ) async {
