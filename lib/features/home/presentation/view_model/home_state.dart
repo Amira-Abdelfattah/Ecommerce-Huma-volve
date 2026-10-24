@@ -7,7 +7,7 @@ class HomeInitial extends HomeState {}
 class CategoryLoading extends HomeState {}
 
 class CategorySuccess extends HomeState {
-  final List<CategoryResponseModel> categories;
+  final List<HomeCategoryEntity> categories;
 
   CategorySuccess(this.categories);
 }
@@ -21,7 +21,7 @@ class CategoryFailure extends HomeState {
 class ProductLoading extends HomeState {}
 
 class ProductSuccess extends HomeState {
-  final List<ProductsResponseModel> products;
+  final List<HomeProductEntity> products;
 
   ProductSuccess(this.products);
 }
