@@ -39,14 +39,15 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     );
     getCategoryUseCase = GetCategoryUseCase(homeRepository);
     getProductUseCase = GetProductUseCase(homeRepository);
-    homeCubit = HomeCubit(getCategoryUseCase, getProductUseCase)super.initState();
+    homeCubit = HomeCubit(getCategoryUseCase, getProductUseCase);
+    super.initState();
   }
 
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> _screens = [
-      BlocProvider(
+      BlocProvider(     
         create: (context) => homeCubit,
         child: HomeScreen(),
       ),

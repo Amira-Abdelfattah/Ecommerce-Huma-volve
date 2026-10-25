@@ -31,3 +31,18 @@ class ProductFailure extends HomeState {
 
   ProductFailure(this.errorMessage);
 }
+
+class ProductLoadMoreLoading extends HomeState {}
+
+class ProductLoadMoreSuccess extends HomeState {
+  final List<HomeProductEntity> products;
+
+  ProductLoadMoreSuccess(this.products);
+}
+
+class ProductLoadMoreFailure extends HomeState {
+  final String errorMessage;
+
+  ProductLoadMoreFailure(this.errorMessage);
+}
+
