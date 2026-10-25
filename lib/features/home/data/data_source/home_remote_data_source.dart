@@ -2,7 +2,11 @@ import 'package:ecommerce_app_huma_volve/features/home/data/models/category_resp
 import 'package:ecommerce_app_huma_volve/features/home/data/models/products_response_model.dart';
 
 abstract class HomeRemoteDataSource {
-  Future<List<ProductsResponseModel>> getProductByCategoryId(int? categoryId);
+  Future<List<ProductsResponseModel>> getProductByCategoryId(
+    int? categoryId, {
+    required int offset,
+    required int limit,
+  });
 
   Future<List<CategoryResponseModel>> getCategoryList();
 }
