@@ -12,6 +12,6 @@ class GetProductUseCase {
     required int offset,
     required int limit,
   }) {
-    return homeRepository.getProductByCategoryId(categoryId);
+    return homeRepository.getProductByCategoryId(categoryId, offset: offset, limit: limit);
   }
 }

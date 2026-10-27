@@ -22,6 +22,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
     final List<CategoryResponseModel> categoriesList = listData
         .map((e) => CategoryResponseModel.fromJson(e))
+        .where((cat) => cat.id != null && cat.id! >= 2 && cat.id! <= 5)
         .toList();
     return categoriesList;
   }

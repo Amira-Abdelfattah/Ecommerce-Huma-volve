@@ -13,7 +13,7 @@ class HomeCubit extends Cubit<HomeState> {
   final GetProductUseCase getProductUseCase;
   List<CategoryResponseModel> categories = [];
   List<ProductsResponseModel> products = [];
-  final int offset = 0;
+  int offset = 0;
   final int limit = 10;
   bool isLoadingMore = false;
   bool hasMore = true;
@@ -33,7 +33,7 @@ class HomeCubit extends Cubit<HomeState> {
 
       },
       (categoriesResult) {
-        id=categoriesResult.first.id;
+        id = categoriesResult.first.id ?? 0;
         emit(CategorySuccess(categoriesResult));
         
         
@@ -72,7 +72,7 @@ class HomeCubit extends Cubit<HomeState> {
     if (isLoadingMore || !hasMore) return;
 
     isLoadingMore = true;
-    emit(ProductLoadMoreLoading);
+    emit(ProductLoadMoreLoading());
 
     final newProducts = await getProductUseCase.invoke(
       selectedCategory,

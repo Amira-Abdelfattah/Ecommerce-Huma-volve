@@ -23,7 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    context.read<HomeCubit>().loadHomeData();
     scrollController = ScrollController();
     scrollController.addListener(_onLisetn);
     super.initState();
@@ -139,11 +138,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 32),
                     BlocBuilder<HomeCubit, HomeState>(
                       buildWhen: (previous, current) {
-                        return current is ProductLoading||
-                            current is ProductFailure||
-                            current is ProductSuccess||
-                            current is ProductLoadMoreLoading||
-                            current is ProductLoadMoreError;
+                        return current is CategoryLoading ||
+                            current is CategoryFailure ||
+                            current is CategorySuccess;
+
+
                       },
                       builder: (context, state) {
                         if (state is CategoryLoading) {

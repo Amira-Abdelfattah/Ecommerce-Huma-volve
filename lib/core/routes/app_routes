@@ -1,0 +1,26 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ecommerce_app_huma_volve/features/home/presentation/view/home_screen.dart';
+import 'package:ecommerce_app_huma_volve/features/details/presentation/view/details_screen.dart';
+import 'package:ecommerce_app_huma_volve/features/login/presentation/view/login_screen.dart';
+import 'package:ecommerce_app_huma_volve/features/signup/presentation/view/signup_screen.dart';
+import 'package:ecommerce_app_huma_volve/features/splash/presentation/view/splash_screen.dart'; 
+
+final GoRouter app_routes = GoRouter(
+  initialLocation: '/',
+  routes: <RouteBase>[
+    GoRoute(
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) {
+        return const SplashScreen();     
+      },  
+        GoRoute(
+          path: '/products/:id',
+          builder: (BuildContext context, GoRouterState state) {
+            final productId = state.pathParameters['id']!;
+            return ProductDetailsScreen(productId: int.parse(productId));
+          },
+        ),
+    ),
+  ],
+);
