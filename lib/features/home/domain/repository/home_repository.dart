@@ -7,6 +7,8 @@ abstract class HomeRepository {
   Future<Either<Failures, List<HomeCategoryEntity>>> getCategoryList();
 
   Future<Either<Failures, List<HomeProductEntity>>> getProductByCategoryId(
-    int? categoryId,
-  );
+    int? categoryId, {
+    required int offset,
+    required int limit,
+  });
 }

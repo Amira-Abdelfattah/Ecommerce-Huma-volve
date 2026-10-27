@@ -22,16 +22,24 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
     final List<CategoryResponseModel> categoriesList = listData
         .map((e) => CategoryResponseModel.fromJson(e))
+        .where((cat) => cat.id != null && cat.id! >= 2 && cat.id! <= 5)
         .toList();
     return categoriesList;
   }
 
   @override
   Future<List<ProductsResponseModel>> getProductByCategoryId(
-    int? categoryId,
+    int? categoryId, {
+    required int offset,
+    required int limit,
+  }
   ) async {
     final productResponse = await apiManager.dio.get(
       "${ApiEndPoints.categoryEndpoint}/$categoryId/${ApiEndPoints.productsEndpoint}",
+      queryParameters: {
+        'limit': limit,
+        'offset': offset,
+      }
     );
 
     // from json

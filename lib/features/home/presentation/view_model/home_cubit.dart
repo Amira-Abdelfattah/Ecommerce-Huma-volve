@@ -13,36 +13,89 @@ class HomeCubit extends Cubit<HomeState> {
   final GetProductUseCase getProductUseCase;
   List<CategoryResponseModel> categories = [];
   List<ProductsResponseModel> products = [];
+  int offset = 0;
+  final int limit = 10;
+  bool isLoadingMore = false;
+  bool hasMore = true;
+  int? selectedCategory;
+  final List <HomeProductEntity>_products = []; 
 
   HomeCubit(this.getCategoryUseCase, this.getProductUseCase)
     : super(HomeInitial());
 
   void loadHomeData() async {
     emit(CategoryLoading());
-    final categories = await getCategoryUseCase.invoke();
-    categories.fold(
+    final categoriesResult = await getCategoryUseCase.invoke();
+    int id = 0;
+    categoriesResult.fold(
       (failures) {
         emit(CategoryFailure(failures.errorMessage));
+
       },
-      (success) {
-        emit(CategorySuccess(success));
-        if (success.isNotEmpty) {
-          getProductsByCategory(success[0].id);
-        }
+      (categoriesResult) {
+        id = categoriesResult.first.id ?? 0;
+        emit(CategorySuccess(categoriesResult));
+        
+        
       },
     );
+      
+       await getProductsByCategory(id);
+        
   }
-
-  void getProductsByCategory(int? categoryId) async {
+  
+  Future<void> getProductsByCategory(int? categoryId) async {
+    hasMore = true;
+    _products.clear();
     emit(ProductLoading());
-    final products = await getProductUseCase.invoke(categoryId);
+    final products = await getProductUseCase.invoke(
+      categoryId,
+      offset: offset,
+      limit: limit,
+    );
     products.fold(
       (failures) {
         emit(ProductFailure(failures.errorMessage));
       },
-      (success) {
-        emit(ProductSuccess(success));
+      (products) {
+        _products.addAll(products);
+        offset = products.length;
+        if(products.length<limit){
+          hasMore = false;
+        }
+          selectedCategory = categoryId;
+          emit(ProductSuccess(List.from(_products)));
       },
     );
   }
+  Future<void> loadMoreProducts() async {
+    if (isLoadingMore || !hasMore) return;
+
+    isLoadingMore = true;
+    emit(ProductLoadMoreLoading());
+
+    final newProducts = await getProductUseCase.invoke(
+      selectedCategory,
+      offset: offset,
+      limit: limit,
+    );
+
+    newProducts.fold(
+      (failures) {
+        isLoadingMore = false;
+        emit(ProductLoadMoreFailure(failures.errorMessage));
+      },
+      (products) {
+           if (products.isEmpty) {
+          hasMore = false;
+        } else {
+          _products.addAll(products);
+          offset += products.length;
+        }
+
+        isLoadingMore = false;
+        emit(ProductSuccess(_products.toList()));
+      },
+    );
+  } 
 }
